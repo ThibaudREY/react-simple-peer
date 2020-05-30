@@ -4,9 +4,12 @@ React component which aims to wrap up [simple-peer](https://github.com/feross/si
 into an easy to use P2P room creator. It's main purpose is to hide signaling data exchange 
 complexity behind a rather simple set of components.
 
+![demo](demo.gif)
+
+
 ## How does it work ?
 
-TODO
+![sequence](sequence.png)
 
 ## Getting Started
 
@@ -14,6 +17,10 @@ TODO
 
 react-simple-peer comes as a [npm package]()
 
+```shell script
+npm install react-simple-peer
+```
+or 
 ```shell script
 yarn add react-simple-peer
 ```

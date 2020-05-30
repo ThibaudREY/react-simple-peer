@@ -1,6 +1,6 @@
-import {Instance} from 'simple-peer';
+import { Instance } from 'simple-peer';
 
 export interface ReactSimplePeerModel {
-    connection: Instance;
-    stream: MediaStream | null;
+  connection: Instance;
+  stream: MediaStream | null;
 }

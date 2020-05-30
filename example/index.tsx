@@ -54,18 +54,20 @@ const App = () => {
             <div className="container">
                 <div className="form-group">
                     <input className="form-control" id="exampleInputEmail1" placeholder="Username" autoFocus={true}
-                           type="text" onChange={async event => setModel(new User(event.target.value, await navigator.mediaDevices.getUserMedia({audio: false, video: true})))}/>
+                           type="text"
+                           onChange={async event => setModel(new User(event.target.value, await navigator.mediaDevices.getUserMedia({
+                               audio: false,
+                               video: true
+                           })))}/>
                 </div>
 
-                <div className="col-4 offset-4">
+                <div className="col-10 offset-1">
                     <button type="button" className="btn btn-primary">
                         State <span className="badge badge-light">
                         <State/>
                     </span>
                     </button>
-                </div>
 
-                <div className="col-8 offset-2">
                     <button className="btn btn-primary m-1" onClick={() => {
                         const roomId = 'AZE';
                         const room = {initiatorPeerId: getId(), roomId: roomId};
@@ -83,14 +85,21 @@ const App = () => {
                 <Peers>
                     {
                         peers => {
-                            return <ul>
-                                {peers.map((peer: User) => <li key={peer.username}>{peer.username}
-                                    <PeerVideo peer={peer}/>
-                                </li>)}
-                            </ul>
+                            return <div className="container row">
+                                {peers.map((peer: User) => <div className="col-3" key={peer.username}>
+                                        <button type="button" className="btn btn-primary">
+                                            <PeerVideo className="center" style={{height: '70px'}} peer={peer}/>
+                                            <p className="text-center">
+                                                {peer.username}
+                                            </p>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         }
                     }
                 </Peers>
+
             </div>
         </Setup>
     );
