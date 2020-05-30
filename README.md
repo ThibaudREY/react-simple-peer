@@ -151,7 +151,7 @@ Wrapper around JoinAck event emitter that provides SignalingData as well as room
 ##### onClientOffer
 Type: 
 ````typescript
-(processClientOffer: (data: ClientOffer, peerId: string, sessionInitiator: boolean, emitterPeerId: string) => void)=> void
+(processClientOffer: async (data: ClientOffer, peerId: string, sessionInitiator: boolean, emitterPeerId: string) => void) => void
 ````  
 Wrapper around clientOffer event listener that provides processing callback for that offer.
 

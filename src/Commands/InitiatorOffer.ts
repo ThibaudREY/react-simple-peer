@@ -30,5 +30,6 @@ export async function initiatorOffer(_: string, str: string, state: IReactSimple
 
     handlePeerConnection(peerConnection, false);
 
-    state.connections.set(id, {model: {connection: peerConnection, stream: null}, peers: []});
+    let connection = state.connections.get(id);
+    state.connections.set(id, connection || {model: {connection: peerConnection, stream: null}, peers: []});
 }

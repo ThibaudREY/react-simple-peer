@@ -1,8 +1,9 @@
-import {IReactSimplePeerState} from '../';
+import {IReactSimplePeerState}           from '../';
 import SimplePeer, {SignalData, Options} from 'simple-peer';
-import freeice from 'freeice';
-import {getSignalData} from '../Commands/getSignalData';
-import {ReactSimplePeerState} from '../';
+import freeice                           from 'freeice';
+import {getSignalData}                   from '../Commands/getSignalData';
+import {ReactSimplePeerState}            from '../';
+import { handlePeerConnection }          from '../Commands/handlePeerConnection';
 
 export async function createExistingPeersOffers(peers: { [key: string]: any }, state: IReactSimplePeerState) {
 
@@ -23,6 +24,8 @@ export async function createExistingPeersOffers(peers: { [key: string]: any }, s
 
                 let pc = new SimplePeer(config);
 
+                handlePeerConnection(pc, false);
+
                 pc.on('stream', async (stream: Promise<MediaStream>) => {
                     if (state.connections.get(set[0])) {
                         state.connections.get(set[0])!.model.stream = await stream;
@@ -32,7 +35,8 @@ export async function createExistingPeersOffers(peers: { [key: string]: any }, s
                 let signalData = await getSignalData(pc);
                 set.splice(1, 1, signalData);
 
-                state.connections.set(set[0], {model: {connection: pc, stream: null}, peers: []});
+                let connection = state.connections.get(set[0]);
+                state.connections.set(set[0], connection || {model: {connection: pc, stream: null}, peers: []});
                 ReactSimplePeerState.next(state);
 
                 return set

@@ -39,7 +39,7 @@ const App = () => {
             }}
 
             onClientOffer={processClientOffer => {
-                ws.on('client-offer', (data: ClientOffer, peerId: string, sessionInitiator: boolean, emitterPeerId: string) => processClientOffer(data, peerId, sessionInitiator, emitterPeerId));
+                ws.on('client-offer', async (data: ClientOffer, peerId: string, sessionInitiator: boolean, emitterPeerId: string) => await processClientOffer(data, peerId, sessionInitiator, emitterPeerId));
             }}
 
             emitInitiatorOffers={(offers, id, room) => {
@@ -54,7 +54,7 @@ const App = () => {
             <div className="container">
                 <div className="form-group">
                     <input className="form-control" id="exampleInputEmail1" placeholder="Username" autoFocus={true}
-                           type="text" onChange={event => setModel(new User(event.target.value))}/>
+                           type="text" onChange={async event => setModel(new User(event.target.value, await navigator.mediaDevices.getUserMedia({audio: false, video: true})))}/>
                 </div>
 
                 <div className="col-4 offset-4">

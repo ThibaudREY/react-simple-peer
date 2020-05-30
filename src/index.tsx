@@ -13,6 +13,7 @@ export {JoinRoomButton} from './Components/JoinRoomButton';
 export {Setup} from './Components/Setup';
 export {Peers} from './Components/Peers';
 export {State} from './Components/State';
+export {PeerVideo} from './Components/PeerVideo';
 export {ClientOffer} from './Models/ClientOffer';
 export {JoinRequest} from './Models/JoinRequest';
 
@@ -31,6 +32,7 @@ export interface IReactSimplePeerState {
     peers: { [key: string]: string }
     id: string
     room: string | null
+    roomCreatorId: string | null
     signalData: SimplePeer.SignalData
     connections: Map<string, {model: ReactSimplePeerModel, peers: string[]}>
     peerConnection: Instance
@@ -76,3 +78,6 @@ ReactSimplePeerStatusState.subscribe(async status => {
     }
 });
 
+ReactSimplePeerState.subscribe((state: IReactSimplePeerState) => {
+    console.warn(Array.from(state.connections.values()).map((value => value.model.stream)))
+});

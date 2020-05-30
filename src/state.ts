@@ -11,6 +11,7 @@ export const initState = {
     // Room assignment left to createRoom implementation
     // Since users may want to base it on something business related
     room: null,
+    roomCreatorId: null,
     signalData: {},
     connections: new Map<string, {model: ReactSimplePeerModel, peers: []}>(),
     peerConnection: new SimplePeer(),

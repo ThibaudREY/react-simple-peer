@@ -1,11 +1,11 @@
-import freeice from 'freeice';
-import SimplePeer, {SignalData, Options} from 'simple-peer';
-import {ReactSimplePeerState, ReactSimplePeerStatusState} from '../';
-import {Status} from '../';
-import {getSignalData}        from "../Commands/getSignalData";
-import {handlePeerConnection} from "./handlePeerConnection";
+import freeice                                              from 'freeice';
+import SimplePeer, { SignalData, Options }                  from 'simple-peer';
+import { ReactSimplePeerState, ReactSimplePeerStatusState } from '../';
+import { Status }                                           from '../';
+import { getSignalData }                                    from "../Commands/getSignalData";
+import { handlePeerConnection }                             from "./handlePeerConnection";
 
-export async function processJoinResponse(offer: SignalData, id: string, room: string/*, roomCreatorId: string*/) {
+export async function processJoinResponse(offer: SignalData, id: string, room: string) {
 
     let state = ReactSimplePeerState.value;
 
@@ -25,14 +25,9 @@ export async function processJoinResponse(offer: SignalData, id: string, room: s
 
     state.peerConnection = new SimplePeer(config);
 
-    state.peerConnection.on('stream', (/*stream: Promise<MediaStream>*/) => {
-
+    state.peerConnection.on('stream', (stream: MediaStream) => {
         if (id) {
-
-            //this.streamManagerService.subscribePeerStream(id, stream);
-        } else {
-            // TODO
-            //this.streamManagerService.subscribePeerStream(roomCreatorId, stream);
+            state.connections.set(id, {model: {connection: state.peerConnection, stream}, peers: []});
         }
     });
 
@@ -44,10 +39,6 @@ export async function processJoinResponse(offer: SignalData, id: string, room: s
     }
 
     state.emitJoinAck(signalData, room, id, state.id);
-
-    if (id) {
-        state.connections.set(id, {model: {connection: state.peerConnection, stream: null}, peers: []});
-    }
 
     handlePeerConnection(state.peerConnection, false);
 

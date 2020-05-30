@@ -8,7 +8,8 @@ export function processClientOffer(data: ClientOffer, id: string, roomCreator: b
 
     if (roomCreator) {
         handlePeerConnection(state.peerConnection, true);
-        state.connections.set(emitterPeerId, {model: {connection: state.peerConnection, stream: null}, peers: []});
+        let connection = state.connections.get(emitterPeerId);
+        state.connections.set(emitterPeerId, connection || {model: {connection: state.peerConnection, stream: null}, peers: []});
         ReactSimplePeerState.next(state);
     }
 

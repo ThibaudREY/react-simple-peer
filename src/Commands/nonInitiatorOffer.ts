@@ -6,8 +6,9 @@ export async function nonInitiatorOffer(_: string, str: string, state: IReactSim
     const offer = data.offer;
     const id = data.id;
 
-    handlePeerConnection(state.peerConnection, false);
-    state.connections.set(id, {model: {connection: state.peerConnection, stream: null}, peers: []});
+    handlePeerConnection(state.peerConnection, true);
+    let connection = state.connections.get(id)
+    state.connections.set(id, connection || {model: {connection: state.peerConnection, stream: null}, peers: []});
 
     state.peerConnection.signal(offer);
 
