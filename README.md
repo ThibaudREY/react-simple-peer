@@ -15,7 +15,7 @@ complexity behind a rather simple set of components.
 
 ### Installing
 
-react-simple-peer comes as a [npm package]()
+react-simple-peer comes as a [npm package](https://www.npmjs.com/package/react-simple-peer)
 
 ```shell script
 npm install react-simple-peer
